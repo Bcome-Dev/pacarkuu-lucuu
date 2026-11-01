@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zheeyeengg</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .flowers {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .flower {
+            position: absolute;
+            font-size: 35px;
+            opacity: 0.7;
+            animation: floatFlower 12s infinite ease-in-out;
+            filter: drop-shadow(0 0 15px rgba(255, 182, 193, 0.8));
+        }
+        @keyframes floatFlower {
+            0% { 
+                transform: translateY(110vh) rotate(0deg) scale(0.7); 
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) scale(1);
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% { 
+                transform: translateY(-20vh) rotate(360deg) scale(0.8); 
+                opacity: 0;
+            }
+        }
+        .sparkles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .sparkle {
+            position: absolute;
+            font-size: 20px;
+            animation: sparkleFloat 8s infinite ease-in-out;
+        }
+        @keyframes sparkleFloat {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg); 
+                opacity: 0;
+            }
+            50% { 
+                transform: translateY(-30px) rotate(180deg); 
+                opacity: 1;
+            }
+        }
+        .petals {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .petal {
+            position: absolute;
+            font-size: 25px;
+            opacity: 0.6;
+            animation: petalFall 10s infinite linear;
+            pointer-events: none;
+        }
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(110vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .container {
+            background: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+            backdrop-filter: blur(15px);
+            border: 3px solid rgba(255, 182, 193, 0.5);
+            border-radius: 30px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 25px 60px rgba(255,105,180,0.3), inset 0 1px 0 rgba(255,255,255,0.8);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            animation: slideIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9) rotate(-5deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+        }
+        .emoji-header {
+            font-size: 4.5em;
+            margin-bottom: 20px;
+            animation: bounce 1.5s infinite;
+            filter: drop-shadow(0 5px 15px rgba(255,105,180,0.5));
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        h1 {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff1493 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            font-weight: 700;
+            animation: glow 2s ease-in-out infinite;
+            filter: drop-shadow(0 2px 10px rgba(255,20,147,0.3));
+        }
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 2px 10px rgba(255,20,147,0.3)); }
+            50% { filter: drop-shadow(0 2px 20px rgba(255,20,147,0.6)); }
+        }
+        .message {
+            color: #2d2d2d;
+            line-height: 1.8;
+            margin-bottom: 35px;
+            font-size: 1.1em;
+            text-shadow: 0 1px 5px rgba(255,255,255,0.8);
+        }
+        .message p {
+            margin-bottom: 12px;
+        }
+        .name {
+            background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 1.3em;
+            display: inline-block;
+            animation: wiggleName 1s infinite;
+        }
+        @keyframes wiggleName {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+        .buttons {
+            position: relative;
+            height: 100px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .yes-btn {
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            color: white;
+            border: 3px solid rgba(255,255,255,0.5);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Quicksand', sans-serif;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            padding: 18px 45px;
+            font-size: 1.15em;
+            position: absolute;
+            left: 20%;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: wiggleYes 0.8s ease-in-out infinite;
+        }
+        @keyframes wiggleYes {
+            0%, 100% { transform: translateY(-50%) rotate(-2deg); }
+            50% { transform: translateY(-50%) rotate(2deg); }
+        }
+        .yes-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+        .no-btn {
+            background: linear-gradient(135deg, #b0b0b0 0%, #909090 100%);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Quicksand', sans-serif;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            padding: 8px 16px;
+            font-size: 0.75em;
+            position: fixed;
+            right: 20%;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: shakeNoInitial 0.2s infinite;
+            z-index: 99999;
+            pointer-events: auto;
+        }
+        @keyframes shakeNoInitial {
+            0% { transform: translateY(-50%) rotate(0deg) scale(1); }
+            10% { transform: translateY(-50%) rotate(-15deg) scale(0.85); }
+            20% { transform: translateY(-50%) rotate(15deg) scale(1.15); }
+            30% { transform: translateY(-50%) rotate(-12deg) scale(0.9); }
+            40% { transform: translateY(-50%) rotate(12deg) scale(1.1); }
+            50% { transform: translateY(-50%) rotate(0deg) scale(1); }
+            60% { transform: translateY(-50%) rotate(-8deg) scale(0.95); }
+            70% { transform: translateY(-50%) rotate(8deg) scale(1.05); }
+            80% { transform: translateY(-50%) rotate(-5deg) scale(0.97); }
+            90% { transform: translateY(-50%) rotate(5deg) scale(1.03); }
+            100% { transform: translateY(-50%) rotate(0deg) scale(1); }
+        }
+        @keyframes shakeNo {
+            0% { transform: rotate(0deg) scale(1); }
+            10% { transform: rotate(-15deg) scale(0.85); }
+            20% { transform: rotate(15deg) scale(1.15); }
+            30% { transform: rotate(-12deg) scale(0.9); }
+            40% { transform: rotate(12deg) scale(1.1); }
+            50% { transform: rotate(0deg) scale(1); }
+            60% { transform: rotate(-8deg) scale(0.95); }
+            70% { transform: rotate(8deg) scale(1.05); }
+            80% { transform: rotate(-5deg) scale(0.97); }
+            90% { transform: rotate(5deg) scale(1.03); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+        .no-btn:active {
+            transform: scale(0.2) rotate(1080deg);
+        }
+        .attempt-counter {
+            display: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 30px 20px;
+                border-radius: 25px;
+            }
+            .emoji-header {
+                font-size: 3.5em;
+                margin-bottom: 15px;
+            }
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            .message {
+                font-size: 1em;
+                line-height: 1.7;
+                margin-bottom: 30px;
+            }
+            .name {
+                font-size: 1.2em;
+            }
+            .buttons {
+                height: 100px;
+            }
+            .yes-btn {
+                padding: 15px 35px;
+                font-size: 1em;
+                left: 15%;
+            }
+            .no-btn {
+                padding: 6px 12px;
+                font-size: 0.7em;
+                right: 15%;
+            }
+            .flower {
+                font-size: 28px;
+            }
+            .petal {
+                font-size: 20px;
+            }
+        }
+        @media (max-width: 400px) {
+            .container {
+                padding: 25px 15px;
+            }
+            .emoji-header {
+                font-size: 3em;
+            }
+            h1 {
+                font-size: 1.6em;
+            }
+            .message {
+                font-size: 0.95em;
+            }
+            .yes-btn {
+                padding: 13px 30px;
+                font-size: 0.95em;
+                left: 10%;
+            }
+            .no-btn {
+                padding: 5px 10px;
+                font-size: 0.65em;
+                right: 10%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="flowers" id="flowers"></div>
+    <div class="sparkles" id="sparkles"></div>
+    <div class="petals" id="petals"></div>
+    <button class="no-btn" id="noBtn" onmousemove="moveButton(event)" ontouchstart="moveButton(event)">Ngga mauu</button>
+    <div class="container">
+        <div class="emoji-header">🌸💕🌸</div>
+        <h1>Zheeyeengg~</h1>
+        <div class="message">
+            <p><span class="name">Erien Putri Dwita Sari</span>,</p>
+            <p>Zheeyeengg ayoo mainn keluar zheeyengg cayangku cintakuu sayangku sayaangkuu cintakuu cintakuu 💕</p>
+        </div>
+        <div class="buttons">
+            <button class="yes-btn" onclick="handleYes()">Mauu bingitzzz! 🚀</button>
+        </div>
+        <div class="attempt-counter" id="counter"></div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const container = document.querySelector('.buttons');
+        const counter = document.getElementById('counter');
+        let attempts = 0;
+        let lastMove = 0;
+        
+        const messages = [
+            "Ehh kok kabur sihh? 🥺",
+            "Zheeyeengg jangan gitu dong 😭",
+            "Ayolahh zheeyeengg 🙏",
+            "Capek ga sih ngeklik terus? 😂",
+            "Udah pasti mau kan sebenernya 😏",
+            "Aku tau kok kamu mau hihi 🤭",
+            "Yauda langsung iya aja deh 💕",
+            "Klik yang pink dong zheeyeengg 🌸"
+        ];
+        
+        const flowerEmojis = ['🌸', '🌺', '🌻', '🌼', '🌷', '🏵️', '💐', '🌹'];
+        const petalEmojis = ['🌸', '🌺', '🌼', '🏵️'];
+        const sparkleEmojis = ['✨', '💫', '⭐', '🌟', '💖', '💕', '💗'];
+        
+        for(let i = 0; i < 35; i++) {
+            let flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.innerHTML = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+            flower.style.left = Math.random() * 100 + '%';
+            flower.style.animationDelay = Math.random() * 12 + 's';
+            flower.style.animationDuration = (Math.random() * 8 + 10) + 's';
+            document.getElementById('flowers').appendChild(flower);
+        }
+        
+        for(let i = 0; i < 50; i++) {
+            let petal = document.createElement('div');
+            petal.className = 'petal';
+            petal.innerHTML = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+            petal.style.left = Math.random() * 100 + '%';
+            petal.style.animationDelay = Math.random() * 10 + 's';
+            petal.style.animationDuration = (Math.random() * 5 + 8) + 's';
+            document.getElementById('petals').appendChild(petal);
+        }
+        
+        for(let i = 0; i < 30; i++) {
+            let sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 8 + 's';
+            document.getElementById('sparkles').appendChild(sparkle);
+        }
+        
+        function moveButton(e) {
+            const now = Date.now();
+            if (now - lastMove < 50) return;
+            lastMove = now;
+            
+            e.preventDefault();
+            
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            const maxX = viewportWidth - btnRect.width - 20;
+            const maxY = viewportHeight - btnRect.height - 20;
+            
+            let randomX = Math.random() * maxX;
+            let randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.zIndex = '9999';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            noBtn.style.right = 'auto';
+            noBtn.style.bottom = 'auto';
+            noBtn.style.transform = 'rotate(' + (Math.random() * 60 - 30) + 'deg) scale(' + (0.6 + Math.random() * 0.5) + ')';
+            noBtn.style.animation = 'shakeNo 0.2s infinite';
+        }
+
+        function handleYes() {
+            alert('Mandiiii cepeettt e maju e mundur e maju e mundur 🚿💕');
+        }
+    </script>
+</body>
+</html>
